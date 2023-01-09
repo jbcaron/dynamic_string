@@ -30,12 +30,18 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		*(dest_char++) = *(src_char++);
 		n--;
 	}
-	dest_long = (unsigned long *)dest;
-	src_long = (const unsigned long *)src;
-	n /= sizeof(unsigned long);
+	dest_long = (unsigned long *)dest_char;
+	src_long = (const unsigned long *)src_char;
 	while (n)
 	{
 		*(dest_long++) = *(src_long++);
+		n -= sizeof(unsigned long);
+	}
+	dest_char = (unsigned char *)dest_long;
+	src_char = (const unsigned char *)src_long;
+	while (n)
+	{
+		*(dest_char++) = *(src_char++);
 		n--;
 	}
 	return (dest);
