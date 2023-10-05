@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dyn_str.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcaron <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jcaron <jcaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:57 by jcaron            #+#    #+#             */
-/*   Updated: 2023/01/09 16:15:55 by jcaron           ###   ########.fr       */
+/*   Updated: 2023/10/05 06:27:58 by jcaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,13 @@ typedef	struct s_dyn_str
 	size_t	capacity;
 	char	*str;
 }			t_dyn_str;
+
+t_dyn_str	*ds_create(size_t capacity);
+
+void		ds_destroy(t_dyn_str *ds);
+
+size_t		ds_append_char(t_dyn_str *ds, char c);
+
+size_t		ds_append_str(t_dyn_str *ds, char *str);
 
 #endif

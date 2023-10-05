@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dyn_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcaron <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jcaron <jcaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:05:28 by jcaron            #+#    #+#             */
-/*   Updated: 2023/01/09 17:24:09 by jcaron           ###   ########.fr       */
+/*   Updated: 2023/10/05 06:28:08 by jcaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,30 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "dyn_str.h"
 
-void			*ft_memcpy(void *dest, const void *src, size_t n);
-size_t			ft_strlen(char *str);
-size_t			get_closer_pow(size_t n);
+
+/**
+ * @brief Get the closest power of two greater than or equal to a given number.
+ * This function calculates the closest power of two that is greater than or
+ * equal to a given number n.
+ * For example, for the input n=5, the function returns 8.
+ *
+ * @param n Number to find the closest power of two for.
+ *
+ * @return Closest power of two greater than or equal to n.
+*/
+
+static size_t	get_closer_pow(size_t n)
+{
+	size_t	pow;
+
+	pow = 1;
+	while (pow < n)
+		pow <<= 1;
+	return (pow);
+}
 
 /**
  * @brief Create a new dynamic string.
@@ -106,7 +125,7 @@ static bool	ds_ensure_capacity(t_dyn_str *ds, size_t add_len)
 	new_str = malloc(sizeof(*new_str) * new_size);
 	if (!new_str)
 		return (false);
-	ft_memcpy(new_str, ds->str, ds->len + 1);
+	memcpy(new_str, ds->str, ds->len + 1);
 	free(ds->str);
 	ds->str = new_str;
 	ds->capacity = new_size - 1;
@@ -147,10 +166,10 @@ size_t	ds_append_str(t_dyn_str *ds, char *str)
 
 	if (!str)
 		return (0);
-	add_len = ft_strlen(str);
+	add_len = strlen(str);
 	if (ds_ensure_capacity(ds, add_len) == false)
 		return (0);
-	ft_memcpy(&ds->str[ds->len], str, add_len + 1);
+	memcpy(&ds->str[ds->len], str, add_len + 1);
 	ds->len += add_len;
 	return (add_len);
 }
